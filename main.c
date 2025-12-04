@@ -6,15 +6,11 @@ int main(void)
     t_list  list;
 
     init_list(&list, 3);
-    list.data[0] = 1;
-    list.data[1] = 3;
-    list.data[2] = 2;
+    insert_list(&list, 1);
+    insert_list(&list, 3);
+    insert_list(&list, 2);
 
-    list.index = 3;
-    for (int i = 0; i < list.index; i++)
-    {
-        printf("[%d] = %d\n", i, list.data[i]);
-    }
+    print_list(&list);
 
     free_list(&list);
 
