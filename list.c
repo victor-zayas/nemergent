@@ -1,6 +1,7 @@
 #include "list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int init_list(t_list *list, int max_nb)
 {
@@ -30,10 +31,20 @@ void    free_list(t_list *list)
     pthread_mutex_destroy(&list->mutex);
 }
 
-void    print_list(t_list *list)
+void    print_list(t_list *list, char *name)
 {
-    for (int i = 0; i < list->index; i++)
-        printf("[%d] = %d\n", i, list->data[i]);
+    printf("%s (%d elements): \n", name, list->index);
+
+    if (strcmp(name, "Negative") == 0)
+    {
+        for (int i = list->index - 1; i >= 0; i--)
+            printf("[%d] = %d\n", i, list->data[i]);
+    }
+    else
+    {
+        for (int i = 0; i < list->index; i++)
+            printf("[%d] = %d\n", i, list->data[i]);
+    }
 }
 
 int insert_list(t_list *list, int value)

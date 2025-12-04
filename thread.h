@@ -5,11 +5,11 @@
 
 typedef struct thread {
     int     max_nb;
-    int     id;
     t_list *positive;
     t_list *negative;
 } t_thread;
 
-void *start_threads(void *arg);
+void    *start_threads(void *arg);
+int     run_threads(int nb_thread, int numbers, t_list *positive, t_list *negative);
 
 #endif

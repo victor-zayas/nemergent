@@ -19,76 +19,18 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    // Allocate threads
-    pthread_t *threads = malloc(sizeof(pthread_t) * nb_threads);
-    if (!threads)
-    {
-        fprintf(stderr, "Error allocating threads\n");
+    t_list positive_list, negative_list;
+    if (run_threads(nb_threads, num_per_thread, &positive_list, &negative_list) != 0)
         return 1;
-    }
 
-    t_thread *args = malloc(sizeof(t_thread) * nb_threads);
-    if (!args)
-    {
-        fprintf(stderr, "Error allocating thread args\n");
-        free(threads);
-        return 1;
-    }
+    sort_list(&positive_list);
+    sort_list(&negative_list);
 
-    // Create lists
-    t_list positive;
-    t_list negative;
-    if (init_list(&positive, nb_threads * num_per_thread) != 0)
-    {
-        fprintf(stderr, "Error initializing positive list\n");
-        free(threads);
-        free(args);
-        return 1;
-    }
+    print_list(&positive_list, "Positive");
+    print_list(&negative_list, "Negative");
 
-    if (init_list(&negative, nb_threads * num_per_thread) != 0)
-    {
-        fprintf(stderr, "Error initializing negative list\n");
-        free_list(&positive);
-        free(threads);
-        free(args);
-        return 1;
-    }
-
-    // Create threads
-    for (int i = 0; i < nb_threads; i++)
-    {
-        args[i].max_nb = num_per_thread;
-        args[i].id = i;
-        args[i].positive = &positive;
-        args[i].negative = &negative;
-
-        if (pthread_create(&threads[i], NULL, start_threads, &args[i]) != 0)
-        {
-            fprintf(stderr, "Error creating thread %d\n", i);
-            free_list(&positive);
-            free_list(&negative);
-            free(threads);
-            free(args);
-            return 1;
-        }
-    }
-
-    // Join threads
-    for (int i = 0; i < nb_threads; i++)
-    {
-        if (pthread_join(threads[i], NULL) != 0)
-        {
-            fprintf(stderr, "Error joining thread %d\n", i);
-            return 1;
-        }
-    }
-
-    free(threads);
-    free(args);
-
-    free_list(&positive);
-    free_list(&negative);
+    free_list(&positive_list);
+    free_list(&negative_list);
 
     return 0;
 }
