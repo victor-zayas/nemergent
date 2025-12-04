@@ -7,4 +7,7 @@ typedef struct list {
     int max_nb;
 } t_list;
 
+int     init_list(t_list *list, int max_nb);
+void    free_list(t_list *list);
+
 #endif
