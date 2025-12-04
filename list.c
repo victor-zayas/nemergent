@@ -54,9 +54,9 @@ int insert_list(t_list *list, int value)
 
 void sort_list(t_list *list)
 {
-    for (int i = 0; i < list->index; i++)
+    for (int i = 0; i < list->index - 1; i++)
     {
-        for (int j = 0; j < list->index; j++)
+        for (int j = 0; j < list->index - i - 1; j++)
         {
             if (list->data[j] > list->data[j + 1])
             {
