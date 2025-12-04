@@ -14,5 +14,6 @@ int     init_list(t_list *list, int max_nb);
 void    free_list(t_list *list);
 void    print_list(t_list *list);
 int     insert_list(t_list *list, int value);
+void    sort_list(t_list *list);
 
 #endif

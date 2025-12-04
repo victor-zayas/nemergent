@@ -10,6 +10,7 @@ int main(void)
     insert_list(&list, 3);
     insert_list(&list, 2);
 
+    sort_list(&list);
     print_list(&list);
 
     free_list(&list);

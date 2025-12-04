@@ -51,3 +51,19 @@ int insert_list(t_list *list, int value)
 
     return 0;
 }
+
+void sort_list(t_list *list)
+{
+    for (int i = 0; i < list->index; i++)
+    {
+        for (int j = 0; j < list->index; j++)
+        {
+            if (list->data[j] > list->data[j + 1])
+            {
+                int tmp = list->data[j];
+                list->data[j] = list->data[j + 1];
+                list->data[j + 1] = tmp;
+            }
+        }
+    }
+}
